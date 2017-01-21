@@ -13,6 +13,11 @@ namespace DataTablesMvc
             return new DataTablesBuilder<TModel>(helper);
         }
 
+        public static DataTablesBlockBuilder<TModel> BeginDataTables<TModel>(this HtmlHelper helper)
+        {
+            return new DataTablesBlockBuilder<TModel>(helper, (WebViewPage)helper.ViewDataContainer);
+        }
+
         public static DataTablesResult Execute<TSource>(this IQueryable<TSource> query, DataTablesRequest request) where TSource : class
         {
             return query.Execute(request, null);

@@ -5,11 +5,13 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.WebPages;
 
 namespace DataTablesMvc.Builders
 {
@@ -18,20 +20,25 @@ namespace DataTablesMvc.Builders
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
     public class DataTablesBuilder<TModel> : IHtmlString
-    {
-        
-        
+    {      
         public DataTablesBuilder(HtmlHelper helper)
         {
             Helper = helper;
+            WebViewPage = (WebViewPage)helper.ViewDataContainer;
             Model = new DataTables();
             Records = new List<TModel>();
 
             id = GenerateId();
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public HtmlHelper Helper { get; private set; }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public WebViewPage WebViewPage { get; private set; }
+
         internal DataTables Model { get; private set; }
+
         internal IEnumerable<TModel> Records { get; set; }
 
         public string id;
@@ -103,7 +110,7 @@ namespace DataTablesMvc.Builders
             var html = new HtmlBuilder("div");
 
             html.Id(id);
-            html.AddCssClass("dt-view");
+            html.AddCssClass("dataTables_container");
             html.AddControl("table", table =>
             {
                 table.AddCssClass("table table-striped table-bordered");
@@ -123,7 +130,27 @@ namespace DataTablesMvc.Builders
                     });
                 });
             });
+
             html.AddScript("$('#{0}').DataTableMvc({1});", id, ToJson());
+
+            /*var page = (WebViewPage)Helper.ViewDataContainer;
+            if (ConfigurationManager.AppSettings["DataTablesMVC_Section"] != null)
+            {
+                var section = ConfigurationManager.AppSettings["DataTablesMVC_Section"].ToString();
+                if(page.IsSectionDefined(section))
+                {
+                    page.DefineSection(section, () =>
+                    {
+                        page.WriteLiteral("<script>");
+                        page.WriteLiteral(script);
+                        page.WriteLiteral("</script>");
+                    });
+                }
+                else
+                {
+                    html.AddScript(script);
+                }
+            }*/
 
             return html.ToString();
         }

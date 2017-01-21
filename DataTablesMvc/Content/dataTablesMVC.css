@@ -1,0 +1,21 @@
+﻿.dataTables_container {
+
+
+}
+    .dataTables_container .dataTables_toolbar {
+        float:left;
+        margin-bottom: 5px;
+    }
+
+    .dataTables_container .dataTables_filter {
+        float:right;
+    }
+
+	.dataTables_container .dataTables_length {
+		float:left;
+		margin-right:10px;
+	}
+
+	.dataTables_container .dataTables_info {
+		float:left;
+	}

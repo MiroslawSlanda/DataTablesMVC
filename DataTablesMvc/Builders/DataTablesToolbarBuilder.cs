@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataTablesMvc.Infrastructure;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -21,19 +22,28 @@ namespace DataTablesMvc.Builders
             _elements = new List<IHtmlString>();
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public HtmlHelper Helper
         {
             get { return _dataTables.Helper; }
         }
 
-        public void AddElement(IHtmlString html)
-        {
-            _elements.Add(html);
-        }
-
         public void Template(Func<object, IHtmlString> html)
         {           
             _elements.Add(html(null));
+        }
+
+        public BlockBuilder BeginTemplate()
+        {
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _elements.Add(block);
+            return block;
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void AddElement(IHtmlString html)
+        {
+            _elements.Add(html);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -45,6 +55,24 @@ namespace DataTablesMvc.Builders
                 html.Append(element.ToHtmlString());
             }
             return html.ToString();
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool Equals(object obj)
+        {
+            return base.Equals(obj);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        protected override string Render()
+        {
+            return base.Render();
         }
     }
 }

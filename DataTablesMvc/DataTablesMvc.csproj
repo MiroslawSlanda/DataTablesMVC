@@ -85,9 +85,11 @@
     <Compile Include="Builders\Columns\DataTablesTemplateColumnBuilder.cs" />
     <Compile Include="Builders\Columns\DataTablesTextColumnBuilder.cs" />
     <Compile Include="Builders\DataTablesAjaxBuilder.cs" />
+    <Compile Include="Builders\DataTablesBlockBuilder.cs" />
     <Compile Include="Builders\DataTablesBuilder.cs" />
     <Compile Include="Builders\DataTablesColumnsBuilder.cs" />
     <Compile Include="Builders\DataTablesEventsBuilder.cs" />
+    <Compile Include="Builders\DataTablesToolbarBlockBuilder.cs" />
     <Compile Include="Builders\DataTablesToolbarBuilder.cs" />
     <Compile Include="Builders\DataTablesModuleBuilder.cs" />
     <Compile Include="Builders\DataTablesSettingsBuilder.cs" />
@@ -96,6 +98,7 @@
     <Compile Include="DataTablesExtension.cs" />
     <Compile Include="DataTablesToolbarExtensions.cs" />
     <Compile Include="DataTablesResult.cs" />
+    <Compile Include="Infrastructure\BlockBuilder.cs" />
     <Compile Include="Infrastructure\ColumnsRequest.cs" />
     <Compile Include="DataTablesRequest.cs" />
     <Compile Include="DataTablesRequestBinder.cs" />
@@ -118,6 +121,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\dataTablesMVC.css" />
     <Content Include="Scripts\dataTablesMVC.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
