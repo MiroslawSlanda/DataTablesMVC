@@ -1,52 +1,50 @@
-﻿using DataTablesMvc.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 
 namespace DataTablesMvc.Builders
 {
-    public class DataTablesToolbarBuilder<TModel> where TModel : class
+    public class DataTablesToolbarBuilder<TModel> : DataTablesModuleBuilder<TModel>
     {
-        readonly HtmlHelper _helper;
-        readonly DataTables _model;
+        readonly List<IHtmlString> _elements;
 
-        public DataTablesToolbarBuilder(HtmlHelper helper, DataTables model)
+        public DataTablesToolbarBuilder(DataTablesBuilder<TModel> dataTables) 
+            : base(dataTables)
         {
-            _helper = helper;
-            _model = model;
+            _elements = new List<IHtmlString>();
         }
 
-        public BootstrapActionLinkButton ActionLinkButton(string linkText, ActionResult result)
+        public HtmlHelper Helper
         {
-            var button = new BootstrapActionLinkButton(_helper, linkText, result);
-            button.Data(new { datatable = "#" + _dataTable.Id });
-            _toolbars.Add(button);
-            return button;
+            get { return _dataTables.Helper; }
         }
 
-        public BootstrapButton<TModel> AddRowButton(ActionResult result)
+        public void AddElement(IHtmlString html)
         {
-            var url = new UrlHelper(_helper.ViewContext.RequestContext);
+            _elements.Add(html);
+        }
 
-            var button = new BootstrapButton<TModel>(_helper, "button");
-            button.Data(new
+        public void Template(Func<object, IHtmlString> html)
+        {           
+            _elements.Add(html(null));
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override string ToString()
+        {
+            var html = new StringBuilder();
+            foreach(var element in _elements)
             {
-                datatable = "#" + _dataTable.Id,
-                add_row = url.Action(result)
-            });
-            _toolbars.Add(button);
-            return button;
-        }
-
-        public BootstrapButton<TModel> Button()
-        {
-            var button = new BootstrapButton<TModel>(_helper, "button");
-            button.Data(new { datatable = "#" + _dataTable.Id });
-            _toolbars.Add(button);
-            return button;
+                html.Append(element.ToHtmlString());
+            }
+            return html.ToString();
         }
     }
 }

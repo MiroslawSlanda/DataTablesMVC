@@ -3,13 +3,12 @@ using System.Web.Mvc;
 
 namespace DataTablesMvc.Builders
 {
-    public class DataTablesLanguageBuilder<TModel>
+    public class DataTablesLanguageBuilder<TModel> : DataTablesModuleBuilder<TModel>
     {
-        readonly DataTablesBuilder<TModel> _dataTables;
-
-        public DataTablesLanguageBuilder(DataTablesBuilder<TModel> dataTables)
+        public DataTablesLanguageBuilder(DataTablesBuilder<TModel> dataTables) 
+            : base(dataTables)
         {
-            _dataTables = dataTables;
+            
         }
 
         public DataTablesLanguageBuilder<TModel> Processing(string processing)

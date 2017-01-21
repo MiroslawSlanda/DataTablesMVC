@@ -8,13 +8,12 @@ using System.Web.Mvc;
 
 namespace DataTablesMvc.Builders
 {
-    public class DataTablesSettingsBuilder<TModel>
+    public class DataTablesSettingsBuilder<TModel> : DataTablesModuleBuilder<TModel>
     {
-        readonly DataTablesBuilder<TModel> _dataTables;
-
-        public DataTablesSettingsBuilder(DataTablesBuilder<TModel> dataTables)
+        public DataTablesSettingsBuilder(DataTablesBuilder<TModel> dataTables) 
+            : base(dataTables)
         {
-            _dataTables = dataTables;
+            
         }
 
         public DataTablesSettingsBuilder<TModel> Processing()

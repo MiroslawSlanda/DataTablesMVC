@@ -5,8 +5,13 @@ namespace DataTablesMvc
 {
     public class DataTablesResponse
     {
+        public DataTablesResponse(DataTablesRequest request)
+        {
+            Draw = request.Draw;
+        }
+
         [JsonProperty(PropertyName = "draw")]
-        public int Draw { get; set; }
+        public int Draw { get; private set; }
         [JsonProperty(PropertyName = "recordsTotal")]
         public int RecordsTotal { get; set; }
         [JsonProperty(PropertyName = "recordsFiltered")]

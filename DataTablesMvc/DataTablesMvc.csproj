@@ -40,6 +40,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -83,36 +84,32 @@
     <Compile Include="Builders\Columns\DataTablesPropertyColumnBuilder.cs" />
     <Compile Include="Builders\Columns\DataTablesTemplateColumnBuilder.cs" />
     <Compile Include="Builders\Columns\DataTablesTextColumnBuilder.cs" />
+    <Compile Include="Builders\DataTablesAjaxBuilder.cs" />
     <Compile Include="Builders\DataTablesBuilder.cs" />
     <Compile Include="Builders\DataTablesColumnsBuilder.cs" />
     <Compile Include="Builders\DataTablesEventsBuilder.cs" />
+    <Compile Include="Builders\DataTablesToolbarBuilder.cs" />
+    <Compile Include="Builders\DataTablesModuleBuilder.cs" />
     <Compile Include="Builders\DataTablesSettingsBuilder.cs" />
     <Compile Include="Builders\DataTablesLanguageBuilder.cs" />
     <Compile Include="Builders\Columns\DataTablesColumnBuilder.cs" />
-    <Compile Include="Builders\Events\DataTablesColumnSizingEventBuilder.cs" />
-    <Compile Include="Builders\Events\DataTablesCreatedRowEventBuilder.cs" />
-    <Compile Include="Builders\Events\DataTablesDrawEventBuilder.cs" />
-    <Compile Include="Builders\Events\DataTablesEventBuilder.cs" />
-    <Compile Include="Builders\Events\DataTablesInitEventBuilder.cs" />
-    <Compile Include="Builders\Events\DataTablesLengthEventBuilder.cs" />
-    <Compile Include="Builders\Events\DataTablesPreInitEventBuilder.cs" />
-    <Compile Include="Builders\Events\DataTablesProcessingEventBuilder.cs" />
-    <Compile Include="Builders\Events\DataTablesStateLoadedEventBuilder.cs" />
     <Compile Include="DataTablesExtension.cs" />
+    <Compile Include="DataTablesToolbarExtensions.cs" />
     <Compile Include="DataTablesResult.cs" />
     <Compile Include="Infrastructure\ColumnsRequest.cs" />
     <Compile Include="DataTablesRequest.cs" />
     <Compile Include="DataTablesRequestBinder.cs" />
     <Compile Include="DataTablesResponse.cs" />
     <Compile Include="Infrastructure\FunctionConverter.cs" />
+    <Compile Include="Infrastructure\HtmlBuilder.cs" />
     <Compile Include="Infrastructure\OrderRequest.cs" />
     <Compile Include="Infrastructure\SearchRequest.cs" />
     <Compile Include="Interfaces\IHyperlink.cs" />
     <Compile Include="Models\DataTablesColumn.cs" />
     <Compile Include="Models\DataTablesColumnDef.cs" />
     <Compile Include="Models\DataTables.cs" />
-    <Compile Include="Models\DataTablesAjaxSettings.cs" />
-    <Compile Include="Models\DataTablesEvent.cs" />
+    <Compile Include="Models\DataTablesAjax.cs" />
+    <Compile Include="Models\DataTablesEvents.cs" />
     <Compile Include="Models\DataTablesLanguage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -120,7 +117,9 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Scripts\dataTablesMVC.js" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

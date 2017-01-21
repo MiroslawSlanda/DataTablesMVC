@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DataTablesMvc.Models
 {
-    public class DataTablesAjaxSettings
+    public class DataTablesAjax
     {
         /// <summary>
         /// 

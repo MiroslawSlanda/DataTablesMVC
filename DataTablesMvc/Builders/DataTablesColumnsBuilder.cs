@@ -6,9 +6,10 @@ using System.Linq.Expressions;
 
 namespace DataTablesMvc.Builders
 {
-    public class DataTablesColumnsBuilder<TModel>
+    public class DataTablesColumnsBuilder<TModel> : DataTablesModuleBuilder<TModel>
     {
-        public DataTablesColumnsBuilder(DataTablesBuilder<TModel> dataTables)
+        public DataTablesColumnsBuilder(DataTablesBuilder<TModel> dataTables) 
+            : base(dataTables)
         {
             DataTables = dataTables;
             Columns = new List<DataTablesColumnBuilder<TModel>>();

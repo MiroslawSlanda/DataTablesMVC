@@ -44,13 +44,13 @@ namespace DataTablesMvc
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "columns")]
-        public IEnumerable<ColumnsRequest> Columns { get; set; }
+        public List<ColumnsRequest> Columns { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [JsonProperty(PropertyName = "order")]
-        public IEnumerable<OrderRequest> Orders { get; set; }
+        public List<OrderRequest> Orders { get; set; }
 
         /// <summary>
         /// 

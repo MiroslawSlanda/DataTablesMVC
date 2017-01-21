@@ -12,18 +12,15 @@ namespace DataTablesMvc
     public class DataTablesResult : JsonResult
     {
         readonly DataTablesResponse _response;
-        readonly DataTablesRequest _request;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="response"></param>
         /// <param name="request"></param>
-        public DataTablesResult(DataTablesResponse response, DataTablesRequest request)
+        public DataTablesResult(DataTablesResponse response)
         {
             _response = response;
-            _request = request;
-            _response.Draw = _request.Draw;
         }
 
         public override void ExecuteResult(ControllerContext context)

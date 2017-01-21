@@ -1,8 +1,10 @@
 ﻿using DataTablesMvc.Builders.Columns;
+using DataTablesMvc.Infrastructure;
 using DataTablesMvc.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,45 +19,25 @@ namespace DataTablesMvc.Builders
     /// <typeparam name="TModel"></typeparam>
     public class DataTablesBuilder<TModel> : IHtmlString
     {
-        IEnumerable<TModel> _records;
+        
         
         public DataTablesBuilder(HtmlHelper helper)
         {
             Helper = helper;
-            _records = new List<TModel>();
             Model = new DataTables();
-         
+            Records = new List<TModel>();
+
             id = GenerateId();
         }
 
         public HtmlHelper Helper { get; private set; }
         internal DataTables Model { get; private set; }
+        internal IEnumerable<TModel> Records { get; set; }
 
-        internal string id;
+        public string id;
         public DataTablesBuilder<TModel> Id(string Id)
         {
             id = Id;
-            return this;
-        }
-
-        public DataTablesBuilder<TModel> Records(IEnumerable<TModel> records)
-        {
-            _records = records;
-            return this;
-        }
-
-        public DataTablesBuilder<TModel> AjaxSource(ActionResult result)
-        {
-            var urlHelper = new UrlHelper(Helper.ViewContext.RequestContext);
-            Model.ServerSide = true;
-            Model.Ajax.Url = urlHelper.Action(result);
-            return this;
-        }
-
-        string _rowDetails;
-        public DataTablesBuilder<TModel> RowDetails(ActionResult result)
-        {
-            //_rowDetails = _urlHelper.Action(result);
             return this;
         }
 
@@ -63,6 +45,22 @@ namespace DataTablesMvc.Builders
         public DataTablesBuilder<TModel> Class(string className)
         {
             _class = className;
+            return this;
+        }
+
+        public DataTablesBuilder<TModel> Ajax(Action<DataTablesAjaxBuilder<TModel>> action)
+        {
+            var builder = new DataTablesAjaxBuilder<TModel>(this);
+            action(builder);
+            return this;
+        }
+
+        public DataTablesBuilder<TModel> Toolbar(Action<DataTablesToolbarBuilder<TModel>> action)
+        {
+            var builder = new DataTablesToolbarBuilder<TModel>(this);
+            action(builder);
+
+            Model.Toolbar = builder.ToString();
             return this;
         }
 
@@ -96,43 +94,39 @@ namespace DataTablesMvc.Builders
         {
             var item = new DataTablesEventsBuilder<TModel>(this);
             builder(item);
-
-            Model.Events = item.Events.Select(e => e.GetEvent()).ToList();
             return this;
         }
 
-        #region ToHtmlString()
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string ToHtmlString()
         {
-            var html = new StringBuilder();
-            html.AppendLine(string.Format("<div id=\"{0}\" class=\"dt-view\">", id));
+            var html = new HtmlBuilder("div");
 
-            html.AppendLine("<table class=\"table table-striped table-bordered\">");
-            html.AppendLine("<thead>");
-            html.AppendLine("<tr>");
-            this.Model.Columns.ForEach(c => html.AppendLine(string.Format("<th>{0}</th>", c.Title)));
-            html.AppendLine("</tr>");
-            html.AppendLine("</thead>");
-
-            html.AppendLine("<tbody>");
-            if (_records != null)
+            html.Id(id);
+            html.AddCssClass("dt-view");
+            html.AddControl("table", table =>
             {
-                _records.ToList().ForEach(r =>
+                table.AddCssClass("table table-striped table-bordered");
+                table.AddControl("thead", thead =>
                 {
-                    html.AppendLine("<tr>");
-                    this.Model.Columns.ForEach(c => { html.AppendLine("<td></td>"); });
-                    html.AppendLine("</tr>");
+                    thead.InnerHtml += "<tr>";
+                    this.Model.Columns.ForEach(c => thead.InnerHtml += string.Format("<th>{0}</th>", c.Title));
+                    thead.InnerHtml += "</tr>";
                 });
-            }
-            html.AppendLine("</tbody>");
-            html.AppendLine("</table>");
-            html.AppendLine("</div>");
-            html.AppendLine("<script>");
-            html.AppendFormat(@"  $('#{0}').DataTableMvc({1}); ", id, ToJson());
-            html.AppendLine("</script>");
+                table.AddControl("tbody", thead =>
+                {
+                    Records.ToList().ForEach(r =>
+                    {
+                        thead.InnerHtml += "<tr>";
+                        this.Model.Columns.ForEach(c => { thead.InnerHtml += "<td></td>"; });
+                        thead.InnerHtml += "</tr>";
+                    });
+                });
+            });
+            html.AddScript("$('#{0}').DataTableMvc({1});", id, ToJson());
+
             return html.ToString();
         }
-        #endregion
 
         private string ToJson()
         {

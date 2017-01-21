@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,10 +14,13 @@ namespace DataTablesMvc.Models
         public DataTables()
         {
             Paging = true;
+            if(ConfigurationManager.AppSettings["DataTablesMVC_Dom"] != null)
+                Dom = ConfigurationManager.AppSettings["DataTablesMVC_Dom"].ToString();
             //Dom = "<\"dt-toolbar\"><\"dt-settings\"f>rt<\"dt-bottom\"lip><\"clear\">";
             Searching = true;
             AutoWidth = true;
-            Ajax = new DataTablesAjaxSettings();
+            Ajax = new DataTablesAjax();
+            Events = new DataTablesEvents();
             PageLength = 10;
         }
 
@@ -61,7 +65,7 @@ namespace DataTablesMvc.Models
         public int PageLength { get; set; }
 
         [JsonProperty("ajax")]
-        public DataTablesAjaxSettings Ajax { get; private set; }
+        public DataTablesAjax Ajax { get; private set; }
 
         [JsonProperty("language")]
         public DataTablesLanguage Language { get; internal set; }
@@ -73,9 +77,9 @@ namespace DataTablesMvc.Models
         public List<DataTablesColumn> Columns { get; set; }
 
         [JsonProperty("events")]
-        public List<DataTablesEvent> Events { get; set; }
+        public DataTablesEvents Events { get; set; }
 
-        [JsonProperty("toolbars")]
-        public string Toolbars { get; set; }
+        [JsonProperty("toolbar")]
+        public string Toolbar { get; set; }
     }
 }

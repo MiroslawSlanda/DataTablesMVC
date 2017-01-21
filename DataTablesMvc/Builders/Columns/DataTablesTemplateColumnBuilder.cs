@@ -32,20 +32,7 @@ namespace DataTablesMvc.Builders.Columns
 
         public override string GetRender()
         {
-            var html = new StringBuilder();
-            html.Append("function (data, type, row) { ");
-            if (!string.IsNullOrEmpty(render))
-            {
-                html.Append(" var fn = window['" + render + "']; ");
-                html.Append(" if (typeof fn === \"function\") return fn.apply(null, [data, type, row]); ");
-                html.Append(" else return data; ");
-            }
-            else
-            {
-                html.Append(" return data; ");
-            }
-            html.Append(" } ");
-            return html.ToString();
+            return render;
         }
     }
 }
