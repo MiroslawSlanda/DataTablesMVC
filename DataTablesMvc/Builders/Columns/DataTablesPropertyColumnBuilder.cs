@@ -20,7 +20,10 @@ namespace DataTablesMvc.Builders.Columns
             _expression = expression;
             name = GetPropertyName(expression);
             _metadata = ModelMetadataProviders.Current.GetMetadataForProperty(null, typeof(TModel), name);
-            title = _metadata.DisplayName;
+            if(!string.IsNullOrEmpty(_metadata.DisplayName))
+                title = _metadata.DisplayName;
+            else
+                title = _metadata.PropertyName;
         }
 
         protected string GetPropertyName(Expression<Func<TModel, TValue>> expression)

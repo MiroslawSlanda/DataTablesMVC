@@ -1,4 +1,6 @@
 ﻿using DataTablesMvc.Models;
+using System;
+using System.ComponentModel;
 using System.Web.Mvc;
 
 namespace DataTablesMvc.Builders
@@ -8,7 +10,7 @@ namespace DataTablesMvc.Builders
         public DataTablesLanguageBuilder(DataTablesBuilder<TModel> dataTables) 
             : base(dataTables)
         {
-            
+            _dataTables.Model.Language = new DataTablesLanguage();
         }
 
         public DataTablesLanguageBuilder<TModel> Processing(string processing)
@@ -111,6 +113,24 @@ namespace DataTablesMvc.Builders
         {
             _dataTables.Model.Language.SortDescending = sortDescending;
             return this;
+        }
+
+        public DataTablesLanguageBuilder<TModel> Decimal(string value)
+        {
+            _dataTables.Model.Language.Decimal = value;
+            return this;
+        }
+
+        public DataTablesLanguageBuilder<TModel> Thousands(string thousands)
+        {
+            _dataTables.Model.Language.Thousands = thousands;
+            return this;
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override void Dispose()
+        {
+            
         }
     }
 }

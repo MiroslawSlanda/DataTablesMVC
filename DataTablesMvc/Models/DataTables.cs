@@ -19,7 +19,6 @@ namespace DataTablesMvc.Models
             //Dom = "<\"dt-toolbar\"><\"dt-settings\"f>rt<\"dt-bottom\"lip><\"clear\">";
             Searching = true;
             AutoWidth = true;
-            Ajax = new DataTablesAjax();
             Events = new DataTablesEvents();
             PageLength = 10;
         }
@@ -38,6 +37,17 @@ namespace DataTablesMvc.Models
         [DefaultValue(true)]
         [JsonProperty("paging")]
         public bool Paging { get; set; }
+
+        [DefaultValue(true)]
+        [JsonProperty("ordering")]
+        public bool Ordering { get; set; }
+
+        [DefaultValue(true)]
+        [JsonProperty("info")]
+        public bool Info { get; set; }
+
+        [JsonProperty("stateSave")]
+        public bool StateSave { get; set; }
 
         [JsonProperty("selectable")]
         public bool Selectable { get; set; }
@@ -65,7 +75,7 @@ namespace DataTablesMvc.Models
         public int PageLength { get; set; }
 
         [JsonProperty("ajax")]
-        public DataTablesAjax Ajax { get; private set; }
+        public DataTablesAjax Ajax { get; internal set; }
 
         [JsonProperty("language")]
         public DataTablesLanguage Language { get; internal set; }

@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace DataTablesMvc
 {
-    /// <summary>
+    /*/// <summary>
     /// 
     /// </summary>
     public class DataTablesRequestBinder : IModelBinder
@@ -39,5 +39,5 @@ namespace DataTablesMvc
 
             return JsonConvert.DeserializeObject<DataTablesRequest>(bodyText);
         }
-    }
+    }*/
 }

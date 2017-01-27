@@ -1,5 +1,6 @@
 ﻿using DataTablesMvc.Builders;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web.Mvc;
@@ -8,15 +9,18 @@ namespace DataTablesMvc
 {
     public static class DataTablesExtension
     {
-        public static DataTablesBuilder<TModel> DataTables<TModel>(this HtmlHelper helper)
-        {
-            return new DataTablesBuilder<TModel>(helper);
-        }
 
+        #region BeginDataTables()
         public static DataTablesBlockBuilder<TModel> BeginDataTables<TModel>(this HtmlHelper helper)
         {
-            return new DataTablesBlockBuilder<TModel>(helper, (WebViewPage)helper.ViewDataContainer);
+            return new DataTablesBlockBuilder<TModel>(helper);
         }
+
+        public static DataTablesBlockBuilder<TModel> BeginDataTables<TModel>(this HtmlHelper helper, IEnumerable<TModel> records)
+        {
+            return new DataTablesBlockBuilder<TModel>(helper, records);
+        }
+        #endregion
 
         public static DataTablesResult Execute<TSource>(this IQueryable<TSource> query, DataTablesRequest request) where TSource : class
         {

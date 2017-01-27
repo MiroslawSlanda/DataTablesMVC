@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DataTablesMvc.Builders
 {
-    public abstract class DataTablesModuleBuilder<TModel>
+    public abstract class DataTablesModuleBuilder<TModel> : IDisposable
     {
         readonly protected DataTablesBuilder<TModel> _dataTables;
         public DataTablesModuleBuilder(DataTablesBuilder<TModel> dataTables)
@@ -14,9 +15,7 @@ namespace DataTablesMvc.Builders
             _dataTables = dataTables;
         }
 
-        protected virtual string Render()
-        {
-            return string.Empty;
-        }
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public abstract void Dispose();
     }
 }

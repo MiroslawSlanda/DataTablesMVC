@@ -17,6 +17,24 @@ namespace DataTablesMvc.Builders.Columns
 
         }
 
+        public DataTablesTextColumnBuilder<TModel> Title(string title)
+        {
+            this.title = title;
+            return this;
+        }
+
+        public DataTablesTextColumnBuilder<TModel> Orderable(bool orderable)
+        {
+            this.orderable = orderable;
+            return this;
+        }
+
+        public DataTablesTextColumnBuilder<TModel> Searchable(bool searchable)
+        {
+            this.searchable = searchable;
+            return this;
+        }
+
         public DataTablesTextColumnBuilder<TModel> Width(string width)
         {
             this.width = width;

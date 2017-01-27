@@ -84,7 +84,6 @@
     <Compile Include="Builders\Columns\DataTablesPropertyColumnBuilder.cs" />
     <Compile Include="Builders\Columns\DataTablesTemplateColumnBuilder.cs" />
     <Compile Include="Builders\Columns\DataTablesTextColumnBuilder.cs" />
-    <Compile Include="Builders\DataTablesAjaxBuilder.cs" />
     <Compile Include="Builders\DataTablesBlockBuilder.cs" />
     <Compile Include="Builders\DataTablesBuilder.cs" />
     <Compile Include="Builders\DataTablesColumnsBuilder.cs" />
@@ -96,8 +95,11 @@
     <Compile Include="Builders\DataTablesLanguageBuilder.cs" />
     <Compile Include="Builders\Columns\DataTablesColumnBuilder.cs" />
     <Compile Include="DataTablesExtension.cs" />
-    <Compile Include="DataTablesToolbarExtensions.cs" />
     <Compile Include="DataTablesResult.cs" />
+    <Compile Include="Data\DataTablesExtensions.cs" />
+    <Compile Include="Data\DataTablesSourceBase.cs" />
+    <Compile Include="Data\IDataTablesLinqSource.cs" />
+    <Compile Include="Data\IDataTablesSqlSource.cs" />
     <Compile Include="Infrastructure\BlockBuilder.cs" />
     <Compile Include="Infrastructure\ColumnsRequest.cs" />
     <Compile Include="DataTablesRequest.cs" />
@@ -107,6 +109,7 @@
     <Compile Include="Infrastructure\HtmlBuilder.cs" />
     <Compile Include="Infrastructure\OrderRequest.cs" />
     <Compile Include="Infrastructure\SearchRequest.cs" />
+    <Compile Include="Data\IDataTablesSource.cs" />
     <Compile Include="Interfaces\IHyperlink.cs" />
     <Compile Include="Models\DataTablesColumn.cs" />
     <Compile Include="Models\DataTablesColumnDef.cs" />

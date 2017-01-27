@@ -17,6 +17,12 @@ namespace DataTablesMvc.Builders.Columns
             visible = false;
         }
 
+        public DataTablesHiddenColumnBuilder<TModel> Searchable(bool searchable)
+        {
+            this.searchable = searchable;
+            return this;
+        }
+
         public override string GetRender()
         {
             return string.Empty;

@@ -1,6 +1,7 @@
 ﻿using DataTablesMvc.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,18 @@ namespace DataTablesMvc.Builders
             : base(dataTables)
         {
             
+        }
+
+        public DataTablesSettingsBuilder<TModel> Paging(bool paging)
+        {
+            _dataTables.Model.Paging = paging;
+            return this;
+        }
+
+        public DataTablesSettingsBuilder<TModel> Ordering(bool ordering)
+        {
+            _dataTables.Model.Ordering = ordering;
+            return this;
         }
 
         public DataTablesSettingsBuilder<TModel> Processing()
@@ -35,13 +48,6 @@ namespace DataTablesMvc.Builders
         {
             this.selectable = true;
             this.selectColumn = column;
-            return this;
-        }
-
-        internal bool hiddenHeader = false;
-        public DataTablesSettingsBuilder<TModel> HiddenHeader()
-        {
-            this.hiddenHeader = true;
             return this;
         }
 
@@ -77,12 +83,6 @@ namespace DataTablesMvc.Builders
         public DataTablesSettingsBuilder<TModel> OrderBy(int column)
         {
             this.orderColumn = column;
-            return this;
-        }
-
-        public DataTablesSettingsBuilder<TModel> Paging()
-        {
-            _dataTables.Model.Paging = true;
             return this;
         }
 
@@ -134,10 +134,15 @@ namespace DataTablesMvc.Builders
             return this;
         }
 
-        internal bool info = false;
         public DataTablesSettingsBuilder<TModel> Info(bool info)
         {
-            this.info = info;
+            _dataTables.Model.Info = info;
+            return this;
+        }
+
+        public DataTablesSettingsBuilder<TModel> StateSave(bool stateSave)
+        {
+            _dataTables.Model.StateSave = stateSave;
             return this;
         }
 
@@ -193,6 +198,12 @@ namespace DataTablesMvc.Builders
             if (condensed) result.Add("table-condensed");
 
             return string.Join(" ", result);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override void Dispose()
+        {
+
         }
     }
 }

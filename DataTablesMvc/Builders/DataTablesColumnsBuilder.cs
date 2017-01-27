@@ -1,7 +1,9 @@
 ﻿using DataTablesMvc.Builders.Columns;
 using DataTablesMvc.Interfaces;
 using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq.Expressions;
 
 namespace DataTablesMvc.Builders
@@ -36,6 +38,13 @@ namespace DataTablesMvc.Builders
         public DataTablesHiddenColumnBuilder<TModel> HiddenFor(Expression<Func<TModel, object>> expression)
         {
             return new DataTablesHiddenColumnBuilder<TModel>(this, expression);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public override void Dispose()
+        {
+            _dataTables.Model.ColumnDefs = Columns.Select(c => c.GetColumnDef()).ToList();
+            _dataTables.Model.Columns = Columns.Select(c => c.GetColumn()).ToList();
         }
     }
 }

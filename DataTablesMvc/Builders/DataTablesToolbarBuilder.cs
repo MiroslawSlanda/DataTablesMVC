@@ -12,7 +12,7 @@ using System.Web.Mvc.Html;
 
 namespace DataTablesMvc.Builders
 {
-    public class DataTablesToolbarBuilder<TModel> : DataTablesModuleBuilder<TModel>
+    /*public class DataTablesToolbarBuilder<TModel> : DataTablesModuleBuilder<TModel>
     {
         readonly List<IHtmlString> _elements;
 
@@ -74,5 +74,5 @@ namespace DataTablesMvc.Builders
         {
             return base.Render();
         }
-    }
+    }*/
 }

@@ -64,5 +64,11 @@ namespace DataTablesMvc.Models
 
         [JsonProperty("sortDescending")]
         public string SortDescending { get; set; }
+
+        [JsonProperty("decimal")]
+        public string Decimal { get; set; }
+
+        [JsonProperty("thousands")]
+        public string Thousands { get; set; }
     }
 }

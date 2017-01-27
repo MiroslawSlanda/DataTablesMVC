@@ -1,6 +1,7 @@
 ﻿using DataTablesMvc.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -19,22 +20,43 @@ namespace DataTablesMvc.Builders.Columns
             _owner.Columns.Add(this);
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string title;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string name;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public IEnumerable<string> values = new List<string>();
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string className;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string width;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool orderable = true;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool searchable = true;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool editable = false;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public bool visible = true;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public string defaultContent;
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual string GetRender()
         {
             return "function (d) { return d; }";
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual DataTablesColumnDef GetColumnDef()
         {
             return new DataTablesColumnDef()
@@ -49,6 +71,7 @@ namespace DataTablesMvc.Builders.Columns
             };
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual DataTablesColumn GetColumn()
         {
             return new DataTablesColumn()

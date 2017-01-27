@@ -24,6 +24,24 @@ namespace DataTablesMvc.Builders.Columns
             return this;
         }
 
+        public DataTablesHyperlinkColumnBuilder<TModel> Orderable(bool orderable)
+        {
+            this.orderable = orderable;
+            return this;
+        }
+
+        public DataTablesHyperlinkColumnBuilder<TModel> Searchable(bool searchable)
+        {
+            this.searchable = searchable;
+            return this;
+        }
+
+        public DataTablesHyperlinkColumnBuilder<TModel> Width(string width)
+        {
+            this.width = width;
+            return this;
+        }
+
         public override string GetRender()
         {
             return "function(d) { return '<a href=\"' + d.Href + '\">' + d.Text + '</a>'; }";
