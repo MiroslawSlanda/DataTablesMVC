@@ -1,27 +1,36 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace DataTablesMvc.Infrastructure
 {
-    internal class FunctionConverter : JsonConverter
+    public class DataConverter : JsonConverter
     {
         public override bool CanConvert(Type objectType)
         {
-            return (objectType == typeof(String));
+            return true;
         }
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            if(value != null)
+            JToken t = JToken.FromObject(value);
+            if(t.Type != JTokenType.Object)
             {
-                string valueAsString = Convert.ToString(value);
-                if (!string.IsNullOrWhiteSpace(valueAsString))
-                    writer.WriteRawValue(valueAsString);
+        
+                t.WriteTo(writer);
+            }
+            else
+            {
+                t.WriteTo(writer);
             }
         }
     }

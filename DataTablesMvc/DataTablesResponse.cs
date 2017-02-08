@@ -12,13 +12,14 @@ namespace DataTablesMvc
 
         [JsonProperty(PropertyName = "draw")]
         public int Draw { get; private set; }
+
         [JsonProperty(PropertyName = "recordsTotal")]
         public int RecordsTotal { get; set; }
+
         [JsonProperty(PropertyName = "recordsFiltered")]
         public int RecordsFiltered { get; set; }
+
         [JsonProperty(PropertyName = "data")]
-        public object[] Data { get; set; }
-        [JsonProperty(PropertyName = "params")]
-        public object Params { get; set; }
+        public IEnumerable<object> Data { get; set; }
     }
 }

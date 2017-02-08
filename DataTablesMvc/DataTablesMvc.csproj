@@ -79,12 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Builders\Columns\DataTablesHiddenColumnBuilder.cs" />
-    <Compile Include="Builders\Columns\DataTablesHyperlinkColumnBuilder.cs" />
     <Compile Include="Builders\Columns\DataTablesPropertyColumnBuilder.cs" />
-    <Compile Include="Builders\Columns\DataTablesTemplateColumnBuilder.cs" />
-    <Compile Include="Builders\Columns\DataTablesTextColumnBuilder.cs" />
-    <Compile Include="Builders\DataTablesBlockBuilder.cs" />
     <Compile Include="Builders\DataTablesBuilder.cs" />
     <Compile Include="Builders\DataTablesColumnsBuilder.cs" />
     <Compile Include="Builders\DataTablesEventsBuilder.cs" />
@@ -105,14 +100,17 @@
     <Compile Include="DataTablesRequest.cs" />
     <Compile Include="DataTablesRequestBinder.cs" />
     <Compile Include="DataTablesResponse.cs" />
+    <Compile Include="Infrastructure\ColumnType.cs" />
+    <Compile Include="Infrastructure\DataConverter.cs" />
     <Compile Include="Infrastructure\FunctionConverter.cs" />
     <Compile Include="Infrastructure\HtmlBuilder.cs" />
     <Compile Include="Infrastructure\OrderRequest.cs" />
     <Compile Include="Infrastructure\SearchRequest.cs" />
     <Compile Include="Data\IDataTablesSource.cs" />
+    <Compile Include="Infrastructure\SortDirectionConverter.cs" />
+    <Compile Include="Interfaces\IValueFormatter.cs" />
     <Compile Include="Interfaces\IHyperlink.cs" />
     <Compile Include="Models\DataTablesColumn.cs" />
-    <Compile Include="Models\DataTablesColumnDef.cs" />
     <Compile Include="Models\DataTables.cs" />
     <Compile Include="Models\DataTablesAjax.cs" />
     <Compile Include="Models\DataTablesEvents.cs" />
@@ -125,7 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\dataTablesMVC.css" />
-    <Content Include="Scripts\dataTablesMVC.js" />
+    <Content Include="Scripts\datatables-mvc.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -31,9 +31,21 @@ namespace DataTablesMvc.Infrastructure
             _controls.Add(tag);
         }
 
+        public void AddScript(string script)
+        {
+            _script.AppendLine(script);
+        }
+
         public void AddScript(string script, params object[] args)
         {
             _script.AppendLine(string.Format(script, args));
+        }
+
+        public void AddScript(Action<StringBuilder> action)
+        {
+            var script = new StringBuilder();
+            action(script);
+            _script.AppendLine(script.ToString());
         }
 
         public override string ToString()
@@ -45,13 +57,8 @@ namespace DataTablesMvc.Infrastructure
             }
             InnerHtml += inner.ToString();
             var result = base.ToString();
-            if(_script.Length > 0)
-            {
-                result += "<script type=\"text/javascript\">";
-                result += _script.ToString();
-                result += "</script>";
-            }
-            
+            result += _script.ToString();
+
             return result;
         }
     }

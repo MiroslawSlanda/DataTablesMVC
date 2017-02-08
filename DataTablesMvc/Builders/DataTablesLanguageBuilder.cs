@@ -13,6 +13,12 @@ namespace DataTablesMvc.Builders
             _dataTables.Model.Language = new DataTablesLanguage();
         }
 
+        public DataTablesLanguageBuilder<TModel> Url(string url)
+        {
+            _dataTables.Model.Language.Url = url;
+            return this;
+        }
+
         public DataTablesLanguageBuilder<TModel> Processing(string processing)
         {
             _dataTables.Model.Language.Processing = processing;

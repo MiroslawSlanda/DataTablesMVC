@@ -51,11 +51,5 @@ namespace DataTablesMvc
         /// </summary>
         [JsonProperty(PropertyName = "order")]
         public List<OrderRequest> Orders { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        [JsonProperty(PropertyName = "params")]
-        public dynamic Params { get; set; }
     }
 }

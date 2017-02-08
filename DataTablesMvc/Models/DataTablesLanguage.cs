@@ -14,6 +14,9 @@ namespace DataTablesMvc.Models
             
         }
 
+        [JsonProperty("url")]
+        public string Url { get; set; }
+
         [JsonProperty("processing")]
         public string Processing { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DataTablesMvc.Infrastructure;
+using Newtonsoft.Json;
 using System.ComponentModel;
 
 namespace DataTablesMvc.Models
@@ -7,12 +8,6 @@ namespace DataTablesMvc.Models
     {
         [JsonProperty("data", DefaultValueHandling = DefaultValueHandling.Populate)]
         public string Data { get; set; }
-
-        [JsonProperty("name", DefaultValueHandling = DefaultValueHandling.Populate)]
-        public string Name { get; set; }
-
-        [JsonProperty("targets", DefaultValueHandling = DefaultValueHandling.Populate)]
-        public int Targets { get; set; }
 
         [DefaultValue(true)]
         [JsonProperty("visible")]
@@ -28,10 +23,29 @@ namespace DataTablesMvc.Models
         [JsonProperty("className")]
         public string ClassName { get; set; }
 
+        [JsonProperty("defaultContent")]
+        public string DefaultContent { get; set; }
+
         [JsonProperty("width")]
         public string Width { get; set; }
 
         [JsonProperty("title")]
         public string Title { get; set; }
+
+        [DefaultValue(null)]
+        [JsonProperty("render", DefaultValueHandling = DefaultValueHandling.Ignore)]
+        [JsonConverter(typeof(FunctionConverter))]
+        public string Render { get; set; }
+
+        public bool HasValue()
+        {
+            return !Orderable ||
+                    !Searchable ||
+                    !Visible ||
+                    !string.IsNullOrEmpty(ClassName) ||
+                    !string.IsNullOrEmpty(Width) ||
+                    !string.IsNullOrEmpty(Title) ||
+                    !string.IsNullOrEmpty(Render);
+        }
     }
 }

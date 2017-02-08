@@ -10,15 +10,15 @@ namespace DataTablesMvc
     public static class DataTablesExtension
     {
 
-        #region BeginDataTables()
-        public static DataTablesBlockBuilder<TModel> BeginDataTables<TModel>(this HtmlHelper helper)
+        #region DataTables()
+        public static DataTablesBuilder<TModel> DataTables<TModel>(this HtmlHelper helper)
         {
-            return new DataTablesBlockBuilder<TModel>(helper);
+            return new DataTablesBuilder<TModel>(helper);
         }
 
-        public static DataTablesBlockBuilder<TModel> BeginDataTables<TModel>(this HtmlHelper helper, IEnumerable<TModel> records)
+        public static DataTablesBuilder<TModel> DataTables<TModel>(this HtmlHelper helper, IEnumerable<TModel> records)
         {
-            return new DataTablesBlockBuilder<TModel>(helper, records);
+            return new DataTablesBuilder<TModel>(helper, records);
         }
         #endregion
 

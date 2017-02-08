@@ -16,10 +16,10 @@ namespace DataTablesMvc.Models
             Paging = true;
             if(ConfigurationManager.AppSettings["DataTablesMVC_Dom"] != null)
                 Dom = ConfigurationManager.AppSettings["DataTablesMVC_Dom"].ToString();
-            //Dom = "<\"dt-toolbar\"><\"dt-settings\"f>rt<\"dt-bottom\"lip><\"clear\">";
             Searching = true;
+            Ordering = true;
             AutoWidth = true;
-            Events = new DataTablesEvents();
+            Info = true;
             PageLength = 10;
         }
 
@@ -79,9 +79,6 @@ namespace DataTablesMvc.Models
 
         [JsonProperty("language")]
         public DataTablesLanguage Language { get; internal set; }
-
-        [JsonProperty("columnDef")]
-        public List<DataTablesColumnDef> ColumnDefs { get; set; }
 
         [JsonProperty("columns")]
         public List<DataTablesColumn> Columns { get; set; }

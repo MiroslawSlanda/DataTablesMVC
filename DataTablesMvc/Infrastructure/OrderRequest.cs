@@ -1,4 +1,7 @@
 ﻿using Newtonsoft.Json;
+using System;
+using System.Linq.Expressions;
+using System.Web.Helpers;
 
 namespace DataTablesMvc.Infrastructure
 {
@@ -6,7 +9,10 @@ namespace DataTablesMvc.Infrastructure
     {
         [JsonProperty(PropertyName = "column")]
         public int Column { get; set; }
+
         [JsonProperty(PropertyName = "dir")]
-        public string Dir { get; set; }
+        [JsonConverter(typeof(SortDirectionConverter))]
+        public SortDirection Dir { get; set; }
+
     }
 }

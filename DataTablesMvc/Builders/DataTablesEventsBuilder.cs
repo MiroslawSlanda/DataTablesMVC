@@ -1,4 +1,5 @@
 ﻿using DataTablesMvc.Infrastructure;
+using DataTablesMvc.Models;
 using System;
 using System.ComponentModel;
 using System.Web;
@@ -10,30 +11,69 @@ namespace DataTablesMvc.Builders
         public DataTablesEventsBuilder(DataTablesBuilder<TModel> dataTables) 
             : base(dataTables)
         {
-            
+            _dataTables.Model.Events = new DataTablesEvents();
         }
 
-        #region Init()
+        #region ColumnSizing()
         /// <summary>
         /// 
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> Init(string handler)
+        public DataTablesEventsBuilder<TModel> ColumnSizing(string handler)
         {
-            _dataTables.Model.Events.Init = handler;
+            _dataTables.Model.Events.ColumnSizing = handler;
             return this;
         }
 
-        public DataTablesEventsBuilder<TModel> Init(Func<object, object> code)
+        public BlockBuilder BeginColumnSizing(string handler)
         {
-            _dataTables.Model.Events.Init = code(null).ToString().Trim();
+            _dataTables.Model.Events.ColumnSizing = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
+        }
+        #endregion
+
+        #region ColumnVisibility()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public DataTablesEventsBuilder<TModel> ColumnVisibility(string handler)
+        {
+            _dataTables.Model.Events.ColumnVisibility = handler;
             return this;
         }
 
-        public BlockBuilder BeginInit(string handler)
+        public BlockBuilder BeginColumnVisibility(string handler)
         {
-            return new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Model.Events.ColumnVisibility = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
+        }
+        #endregion
+
+        #region Destroy()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public DataTablesEventsBuilder<TModel> Destroy(string handler)
+        {
+            _dataTables.Model.Events.Destroy = handler;
+            return this;
+        }
+
+        public BlockBuilder BeginDestroy(string handler)
+        {
+            _dataTables.Model.Events.Destroy = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
         }
         #endregion
 
@@ -49,12 +89,6 @@ namespace DataTablesMvc.Builders
             return this;
         }
 
-        public DataTablesEventsBuilder<TModel> Draw(Func<object, object> code)
-        {
-            _dataTables.Model.Events.Draw = code(null).ToString().Trim();
-            return this;
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -62,36 +96,52 @@ namespace DataTablesMvc.Builders
         /// <returns></returns>
         public BlockBuilder BeginDraw(string handler)
         {
-            return new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Model.Events.Draw = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
         }
         #endregion
 
-        #region ColumnSizing()
+        #region Error()
         /// <summary>
         /// 
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> ColumnSizing(string handler)
+        public DataTablesEventsBuilder<TModel> Error(string handler)
         {
-            _dataTables.Model.Events.ColumnSizing = handler;
+            _dataTables.Model.Events.Error = handler;
             return this;
         }
 
-        public DataTablesEventsBuilder<TModel> ColumnSizing(Func<object, object> code)
+        public BlockBuilder BeginError(string handler)
         {
-            _dataTables.Model.Events.ColumnSizing = code(null).ToString().Trim();
-            return this;
+            _dataTables.Model.Events.Error = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
         }
+        #endregion
 
+        #region Init()
         /// <summary>
         /// 
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public BlockBuilder BeginColumnSizing(string handler)
+        public DataTablesEventsBuilder<TModel> Init(string handler)
         {
-            return new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Model.Events.Init = handler;
+            return this;
+        }
+
+        public BlockBuilder BeginInit(string handler)
+        {
+            _dataTables.Model.Events.Init = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
         }
         #endregion
 
@@ -107,9 +157,29 @@ namespace DataTablesMvc.Builders
             return this;
         }
 
-        public DataTablesEventsBuilder<TModel> Length(Func<object, object> code)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public BlockBuilder BeginLength(string handler)
         {
-            _dataTables.Model.Events.Length = code(null).ToString().Trim();
+            _dataTables.Model.Events.Length = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
+        }
+        #endregion
+
+        #region Order()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public DataTablesEventsBuilder<TModel> Order(string handler)
+        {
+            _dataTables.Model.Events.Order = handler;
             return this;
         }
 
@@ -118,11 +188,35 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public BlockBuilder BeginLength(string handler)
+        public BlockBuilder BeginOrder(string handler)
         {
-            return new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Model.Events.Order = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
         }
         #endregion
+
+        #region Page()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public DataTablesEventsBuilder<TModel> Page(string handler)
+        {
+            _dataTables.Model.Events.Page = handler;
+            return this;
+        }
+
+        public BlockBuilder BeginPage(string handler)
+        {
+            _dataTables.Model.Events.Page = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
+        }
+        #endregion  
 
         #region PreInit()
         /// <summary>
@@ -136,9 +230,29 @@ namespace DataTablesMvc.Builders
             return this;
         }
 
-        public DataTablesEventsBuilder<TModel> PreInit(Func<object, object> code)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public BlockBuilder BeginPreInit(string handler)
         {
-            _dataTables.Model.Events.PreInit = code(null).ToString().Trim();
+            _dataTables.Model.Events.PreInit = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
+        }
+        #endregion
+
+        #region PreXhr()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public DataTablesEventsBuilder<TModel> PreXhr(string handler)
+        {
+            _dataTables.Model.Events.PreXhr = handler;
             return this;
         }
 
@@ -147,9 +261,12 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public BlockBuilder BeginPreInit(string handler)
+        public BlockBuilder BeginPreXhr(string handler)
         {
-            return new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Model.Events.PreXhr = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
         }
         #endregion
 
@@ -165,9 +282,29 @@ namespace DataTablesMvc.Builders
             return this;
         }
 
-        public DataTablesEventsBuilder<TModel> Processing(Func<object, object> code)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public BlockBuilder BeginProcessing(string handler)
         {
-            _dataTables.Model.Events.Processing = code(null).ToString().Trim();
+            _dataTables.Model.Events.Processing = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
+        }
+        #endregion
+
+        #region Search()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public DataTablesEventsBuilder<TModel> Search(string handler)
+        {
+            _dataTables.Model.Events.Search = handler;
             return this;
         }
 
@@ -176,9 +313,12 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public BlockBuilder BeginProcessing(string handler)
+        public BlockBuilder BeginSearch(string handler)
         {
-            return new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Model.Events.Search = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
         }
         #endregion
 
@@ -194,9 +334,29 @@ namespace DataTablesMvc.Builders
             return this;
         }
 
-        public DataTablesEventsBuilder<TModel> StateLoaded(Func<object, object> code)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public BlockBuilder BeginStateLoaded(string handler)
         {
-            _dataTables.Model.Events.StateLoaded = code(null).ToString().Trim();
+            _dataTables.Model.Events.StateLoaded = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
+        }
+        #endregion
+
+        #region StateLoadParams()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public DataTablesEventsBuilder<TModel> StateLoadParams(string handler)
+        {
+            _dataTables.Model.Events.StateLoadParams = handler;
             return this;
         }
 
@@ -205,9 +365,64 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public BlockBuilder BeginStateLoaded(string handler)
+        public BlockBuilder BeginStateLoadParams(string handler)
         {
-            return new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Model.Events.StateLoadParams = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
+        }
+        #endregion
+
+        #region StateSaveParams()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public DataTablesEventsBuilder<TModel> StateSaveParams(string handler)
+        {
+            _dataTables.Model.Events.StateSaveParams = handler;
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public BlockBuilder BeginStateSaveParams(string handler)
+        {
+            _dataTables.Model.Events.StateSaveParams = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
+        }
+        #endregion
+
+        #region Xhr()
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public DataTablesEventsBuilder<TModel> Xhr(string handler)
+        {
+            _dataTables.Model.Events.Xhr = handler;
+            return this;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="handler">The name of the JavaScript function</param>
+        /// <returns></returns>
+        public BlockBuilder BeginXhr(string handler)
+        {
+            _dataTables.Model.Events.Xhr = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
         }
         #endregion
 
@@ -223,12 +438,6 @@ namespace DataTablesMvc.Builders
             return this;
         }
 
-        public DataTablesEventsBuilder<TModel> CreatedRow(Func<object, object> code)
-        {
-            _dataTables.Model.Events.CreatedRow = code(null).ToString().Trim();
-            return this;
-        }
-
         /// <summary>
         /// 
         /// </summary>
@@ -236,7 +445,10 @@ namespace DataTablesMvc.Builders
         /// <returns></returns>
         public BlockBuilder BeginCreatedRow(string handler)
         {
-            return new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Model.Events.CreatedRow = handler;
+            var block = new BlockBuilder(_dataTables.WebViewPage);
+            _dataTables.Scripts.Add(block);
+            return block;
         }
         #endregion
 

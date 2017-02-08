@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using DataTablesMvc.Infrastructure;
+using Newtonsoft.Json;
 using System;
 using System.Text;
 using System.Web;
@@ -17,10 +18,18 @@ namespace DataTablesMvc
         /// 
         /// </summary>
         /// <param name="response"></param>
-        /// <param name="request"></param>
         public DataTablesResult(DataTablesResponse response)
         {
             _response = response;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="response"></param>
+        public DataTablesResult(DataTablesRequest request, Action<DataTablesResponse> response)
+        {
+            _response = new DataTablesResponse(request);
+            response(_response);
         }
 
         public override void ExecuteResult(ControllerContext context)
@@ -36,7 +45,10 @@ namespace DataTablesMvc
             {
                 using (var writer = new JsonTextWriter(response.Output) { Formatting = Formatting.Indented })
                 {
-                    JsonSerializer serializer = JsonSerializer.Create(new JsonSerializerSettings());
+                    var settings = new JsonSerializerSettings();
+                    settings.Converters.Add(new DataConverter());
+
+                    JsonSerializer serializer = JsonSerializer.Create(settings);
                     serializer.Serialize(writer, _response);
                     writer.Flush();
                 }

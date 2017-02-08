@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using System.Web.WebPages;
 
 namespace DataTablesMvc.Builders
@@ -19,22 +20,24 @@ namespace DataTablesMvc.Builders
     /// 
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    public abstract class DataTablesBuilder<TModel> : IHtmlString
+    public class DataTablesBuilder<TModel> : IDisposable
     {
-        protected string _id;
+        internal string id;
+        protected string _class = "";
 
         public DataTablesBuilder(HtmlHelper helper, IEnumerable<TModel> records = null)
         {
             Helper = helper;
             WebViewPage = (WebViewPage)helper.ViewDataContainer;
             Model = new DataTables();
+            Scripts = new List<IHtmlString>();
 
             if (records != null)
                 Records = records;
             else
                 Records = new List<TModel>();
 
-            _id = GenerateId();
+            id = GenerateId();
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -47,40 +50,96 @@ namespace DataTablesMvc.Builders
 
         internal IEnumerable<TModel> Records { get; set; }
 
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public string ToHtmlString()
-        {
-            var html = new HtmlBuilder("div");
+        internal ICollection<IHtmlString> Scripts { get; private set; }
 
-            html.Id(_id);
-            html.AddCssClass("dataTables_container");
-            html.AddControl("table", table =>
+        public DataTablesBuilder<TModel> Id(string Id)
+        {
+            this.id = Id;
+            return this;
+        }
+
+        
+        public DataTablesBuilder<TModel> Class(string className)
+        {
+            _class = className;
+            return this;
+        }
+
+        public virtual DataTablesBuilder<TModel> AjaxSource(ActionResult result)
+        {
+            var urlHelper = new UrlHelper(Helper.ViewContext.RequestContext);
+
+            Model.ServerSide = true;
+            Model.Ajax = new DataTablesAjax();
+            Model.Ajax.Url = urlHelper.Action(result);
+            return this;
+        }
+
+        public DataTablesToolbarBlockBuilder<TModel> Toolbar()
+        {
+            return new DataTablesToolbarBlockBuilder<TModel>(this);
+        }
+
+        public DataTablesSettingsBuilder<TModel> Settings()
+        {
+            return new DataTablesSettingsBuilder<TModel>(this);
+        }
+
+        public DataTablesLanguageBuilder<TModel> Language()
+        {
+            return new DataTablesLanguageBuilder<TModel>(this);
+        }
+
+        public DataTablesColumnsBuilder<TModel> Columns()
+        {
+            return new DataTablesColumnsBuilder<TModel>(this);
+        }
+
+        public DataTablesEventsBuilder<TModel> Events()
+        {
+            return new DataTablesEventsBuilder<TModel>(this);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Dispose()
+        {
+            var html = new HtmlBuilder("table");
+
+            html.Id(id);
+            html.AddCssClass("table table-striped table-bordered");
+            html.AddControl("thead", thead =>
             {
-                table.AddCssClass("table table-striped table-bordered");
-                table.AddControl("thead", thead =>
+                thead.InnerHtml += "<tr>";
+                this.Model.Columns.ForEach(c => thead.InnerHtml += string.Format("<th>{0}</th>", c.Title));
+                thead.InnerHtml += "</tr>";
+            });
+            html.AddControl("tbody", thead =>
+            {
+                Records.ToList().ForEach(r =>
                 {
                     thead.InnerHtml += "<tr>";
-                    this.Model.Columns.ForEach(c => thead.InnerHtml += string.Format("<th>{0}</th>", c.Title));
-                    thead.InnerHtml += "</tr>";
-                });
-                table.AddControl("tbody", thead =>
-                {
-                    Records.ToList().ForEach(r =>
+                    this.Model.Columns.ForEach(c =>
                     {
-                        thead.InnerHtml += "<tr>";
-                        this.Model.Columns.ForEach(c => 
-                        {
-                            var property = typeof(TModel).GetProperty(c.Data);
-                            thead.InnerHtml += "<td>" + property.GetValue(r, null) + "</td>";
-                        });
-                        thead.InnerHtml += "</tr>";
+                        var property = typeof(TModel).GetProperty(c.Data);
+                        thead.InnerHtml += "<td>" + property.GetValue(r, null) + "</td>";
                     });
+                    thead.InnerHtml += "</tr>";
                 });
             });
 
-            html.AddScript("$('#{0}').DataTableMvc({1});", _id, ToJson());
+            html.AddScript(s =>
+            {
+                s.AppendLine("<script type=\"text/javascript\">");
+                s.AppendLine(string.Format("jQuery(function(){{ jQuery('#{0}').DataTablesMvc({1}); }});", id, ToJson()));
+                s.AppendLine("</script>");
+            });
 
-            return html.ToString();
+            foreach (var script in Scripts)
+            {
+                html.AddScript(script.ToHtmlString());
+            }
+
+            WebViewPage.WriteLiteral(html.ToString());
         }
 
         private string ToJson()

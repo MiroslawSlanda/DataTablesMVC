@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace DataTablesMvc.Builders.Columns
 {
-    public abstract class DataTablesColumnBuilder<TModel>
+    public abstract class DataTablesColumnBuilder<TModel> : IDisposable
     {
         protected readonly DataTablesColumnsBuilder<TModel> _owner;
         
@@ -53,22 +53,7 @@ namespace DataTablesMvc.Builders.Columns
         [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual string GetRender()
         {
-            return "function (d) { return d; }";
-        }
-
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public virtual DataTablesColumnDef GetColumnDef()
-        {
-            return new DataTablesColumnDef()
-            {
-                Name = name,
-                Targets = _owner.Columns.IndexOf(this),
-                Orderable = orderable,
-                Render = GetRender(),
-                ClassName = className,
-                DefaultContent = defaultContent,
-                Visible = visible
-            };
+            return string.Empty;
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -77,14 +62,21 @@ namespace DataTablesMvc.Builders.Columns
             return new DataTablesColumn()
             {
                 Data = name,
-                Name = name,
                 Visible = visible,
                 Orderable = orderable,
                 Searchable = searchable,
                 ClassName = className,
+                DefaultContent = defaultContent,
                 Width = width,
-                Title = title
+                Title = title,
+                Render = GetRender()
             };
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Dispose()
+        {
+            
         }
 
         internal virtual string GetSearch()
@@ -94,6 +86,4 @@ namespace DataTablesMvc.Builders.Columns
 
         
     }
-
-    
 }
