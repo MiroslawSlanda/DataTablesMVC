@@ -1,5 +1,5 @@
 # DataTablesMVC
-===================
+
 Extendable packages pack for simplifying DataTables in your ASP.MVC projects. 
 
 # Documentation:
