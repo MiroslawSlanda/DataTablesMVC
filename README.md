@@ -11,6 +11,20 @@ Extendable packages pack for simplifying DataTables in your ASP.MVC projects.
 {
     using(var c = dt.Columns())
     {
+        c.ColumnFor(d => d.Name);
+        c.ColumnFor(d => d.ProductNumber);
+        c.ColumnFor(d => d.Color);
+    }
+}
+```
+
+```csharp
+@model IEnumerable<Product>
+
+@using(var dt = Html.DataTables(Model))
+{
+    using(var c = dt.Columns())
+    {
         c.ColumnFor(d => d.Name).Title("[[[Name]]]");
         c.ColumnFor(d => d.ProductNumber).Title("[[[Number]]]");
         c.ColumnFor(d => d.Color).Title("[[[Color]]]").Width("30px").Render("color");
