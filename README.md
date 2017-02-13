@@ -6,6 +6,7 @@ Extendable packages pack for simplifying DataTables in your ASP.MVC projects.
 
 ```csharp
 @model IEnumerable<Product>
+
 @using(var dt = Html.DataTables(Model))
 {
     using(var c = dt.Columns())
@@ -24,6 +25,15 @@ Extendable packages pack for simplifying DataTables in your ASP.MVC projects.
                 </script>
             }
         }
+    }
+    using(var s = dt.Settings())
+    {
+        s.SearchDelay(200);
+        s.Dom("<\"top\"i>rt<\"bottom\"flp><\"clear\">");
+    }
+    using(var lang = dt.Language())
+    {
+        lang.SearchPlaceholder("[[[Search products]]]");
     }
     using(var e = dt.Events())
     {
