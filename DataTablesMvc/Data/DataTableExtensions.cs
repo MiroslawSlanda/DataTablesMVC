@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataTablesMvc.Data
+namespace DataTablesMvc
 {
-    public static class DataTablesExtensions
+    public static class DataTableExtensions
     {
     }
 }

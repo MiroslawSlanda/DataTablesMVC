@@ -7,9 +7,21 @@ namespace DataTablesMvc
     /// <summary>
     /// 
     /// </summary>
-    public class DataTablesRequest
+    public class DataTableRequest
     {
-        public DataTablesRequest()
+        static DataTableRequest _empty;
+        public static DataTableRequest Empty
+        {
+            get
+            {
+                return _empty ?? (_empty = new DataTableRequest()
+                {
+                    Length = 20
+                });
+            }
+        }
+
+        public DataTableRequest()
         {
             Search = new SearchRequest();
             Columns = new List<ColumnsRequest>();

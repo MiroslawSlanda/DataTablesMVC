@@ -79,6 +79,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Binders\DataTableSourceBinder.cs" />
     <Compile Include="Builders\Columns\DataTablesPropertyColumnBuilder.cs" />
     <Compile Include="Builders\DataTablesBuilder.cs" />
     <Compile Include="Builders\DataTablesColumnsBuilder.cs" />
@@ -89,24 +90,24 @@
     <Compile Include="Builders\DataTablesSettingsBuilder.cs" />
     <Compile Include="Builders\DataTablesLanguageBuilder.cs" />
     <Compile Include="Builders\Columns\DataTablesColumnBuilder.cs" />
+    <Compile Include="DataTableConfig.cs" />
     <Compile Include="DataTablesExtension.cs" />
     <Compile Include="DataTablesResult.cs" />
-    <Compile Include="Data\DataTablesExtensions.cs" />
-    <Compile Include="Data\DataTablesSourceBase.cs" />
-    <Compile Include="Data\IDataTablesLinqSource.cs" />
-    <Compile Include="Data\IDataTablesSqlSource.cs" />
+    <Compile Include="Data\DataTableExtensions.cs" />
+    <Compile Include="Data\DataTableLinqSource.cs" />
+    <Compile Include="Data\DataTableSource.cs" />
+    <Compile Include="Data\DataTableSqlSource.cs" />
     <Compile Include="Infrastructure\BlockBuilder.cs" />
     <Compile Include="Infrastructure\ColumnsRequest.cs" />
     <Compile Include="DataTablesRequest.cs" />
-    <Compile Include="DataTablesRequestBinder.cs" />
     <Compile Include="DataTablesResponse.cs" />
     <Compile Include="Infrastructure\ColumnType.cs" />
     <Compile Include="Infrastructure\DataConverter.cs" />
+    <Compile Include="Infrastructure\FilterBuilder.cs" />
     <Compile Include="Infrastructure\FunctionConverter.cs" />
     <Compile Include="Infrastructure\HtmlBuilder.cs" />
     <Compile Include="Infrastructure\OrderRequest.cs" />
     <Compile Include="Infrastructure\SearchRequest.cs" />
-    <Compile Include="Data\IDataTablesSource.cs" />
     <Compile Include="Infrastructure\SortDirectionConverter.cs" />
     <Compile Include="Interfaces\IValueFormatter.cs" />
     <Compile Include="Interfaces\IHyperlink.cs" />

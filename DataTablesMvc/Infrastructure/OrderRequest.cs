@@ -14,5 +14,6 @@ namespace DataTablesMvc.Infrastructure
         [JsonConverter(typeof(SortDirectionConverter))]
         public SortDirection Dir { get; set; }
 
+        
     }
 }

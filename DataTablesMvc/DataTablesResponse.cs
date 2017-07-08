@@ -3,9 +3,18 @@ using System.Collections.Generic;
 
 namespace DataTablesMvc
 {
-    public class DataTablesResponse
+    public class DataTableResponse
     {
-        public DataTablesResponse(DataTablesRequest request)
+        static DataTableResponse _empty;
+        public static DataTableResponse Empty
+        {
+            get
+            {
+                return _empty ?? (_empty = new DataTableResponse(DataTableRequest.Empty));
+            }
+        }
+
+        public DataTableResponse(DataTableRequest request)
         {
             Draw = request.Draw;
         }

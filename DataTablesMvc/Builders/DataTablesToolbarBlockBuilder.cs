@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace DataTablesMvc.Builders
 {
-    public class DataTablesToolbarBlockBuilder<TModel> : IDisposable
+    public class DataTableToolbarBlockBuilder<TModel> : IDisposable
     {
-        DataTablesBuilder<TModel> _dataTables;
+        DataTableBuilder<TModel> _dataTables;
 
-        public DataTablesToolbarBlockBuilder(DataTablesBuilder<TModel> dataTables)
+        public DataTableToolbarBlockBuilder(DataTableBuilder<TModel> dataTables)
         {
             _dataTables = dataTables;
             _dataTables.WebViewPage.OutputStack.Push(new StringWriter());

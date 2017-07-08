@@ -56,11 +56,16 @@ namespace DataTablesMvc.Models
         [JsonProperty("searching")]
         public bool Searching { get; set; }
 
+        [DefaultValue(false)]
         [JsonProperty("colReorder")]
         public bool ColReorder { get; set; }
 
+        [DefaultValue(false)]
         [JsonProperty("orderCellsTop")]
-        public bool OrderCellsTop { get; set; }
+        public bool OrderCellsTop
+        {
+            get { return Columns.Any(c => c.Filter != null); }
+        }
 
         [DefaultValue(true)]
         [JsonProperty("autoWidth")]

@@ -6,9 +6,9 @@ using System.Web;
 
 namespace DataTablesMvc.Builders
 {
-    public class DataTablesEventsBuilder<TModel> : DataTablesModuleBuilder<TModel>
+    public class DataTableEventsBuilder<TModel> : DataTableModuleBuilder<TModel>
     {
-        public DataTablesEventsBuilder(DataTablesBuilder<TModel> dataTables) 
+        public DataTableEventsBuilder(DataTableBuilder<TModel> dataTables) 
             : base(dataTables)
         {
             _dataTables.Model.Events = new DataTablesEvents();
@@ -20,7 +20,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> ColumnSizing(string handler)
+        public DataTableEventsBuilder<TModel> ColumnSizing(string handler)
         {
             _dataTables.Model.Events.ColumnSizing = handler;
             return this;
@@ -41,7 +41,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> ColumnVisibility(string handler)
+        public DataTableEventsBuilder<TModel> ColumnVisibility(string handler)
         {
             _dataTables.Model.Events.ColumnVisibility = handler;
             return this;
@@ -62,7 +62,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> Destroy(string handler)
+        public DataTableEventsBuilder<TModel> Destroy(string handler)
         {
             _dataTables.Model.Events.Destroy = handler;
             return this;
@@ -83,7 +83,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> Draw(string handler)
+        public DataTableEventsBuilder<TModel> Draw(string handler)
         {
             _dataTables.Model.Events.Draw = handler;
             return this;
@@ -109,7 +109,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> Error(string handler)
+        public DataTableEventsBuilder<TModel> Error(string handler)
         {
             _dataTables.Model.Events.Error = handler;
             return this;
@@ -130,7 +130,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> Init(string handler)
+        public DataTableEventsBuilder<TModel> Init(string handler)
         {
             _dataTables.Model.Events.Init = handler;
             return this;
@@ -151,7 +151,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> Length(string handler)
+        public DataTableEventsBuilder<TModel> Length(string handler)
         {
             _dataTables.Model.Events.Length = handler;
             return this;
@@ -177,7 +177,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> Order(string handler)
+        public DataTableEventsBuilder<TModel> Order(string handler)
         {
             _dataTables.Model.Events.Order = handler;
             return this;
@@ -203,7 +203,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> Page(string handler)
+        public DataTableEventsBuilder<TModel> Page(string handler)
         {
             _dataTables.Model.Events.Page = handler;
             return this;
@@ -224,7 +224,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> PreInit(string handler)
+        public DataTableEventsBuilder<TModel> PreInit(string handler)
         {
             _dataTables.Model.Events.PreInit = handler;
             return this;
@@ -250,7 +250,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> PreXhr(string handler)
+        public DataTableEventsBuilder<TModel> PreXhr(string handler)
         {
             _dataTables.Model.Events.PreXhr = handler;
             return this;
@@ -276,7 +276,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> Processing(string handler)
+        public DataTableEventsBuilder<TModel> Processing(string handler)
         {
             _dataTables.Model.Events.Processing = handler;
             return this;
@@ -302,7 +302,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> Search(string handler)
+        public DataTableEventsBuilder<TModel> Search(string handler)
         {
             _dataTables.Model.Events.Search = handler;
             return this;
@@ -328,7 +328,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> StateLoaded(string handler)
+        public DataTableEventsBuilder<TModel> StateLoaded(string handler)
         {
             _dataTables.Model.Events.StateLoaded = handler;
             return this;
@@ -354,7 +354,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> StateLoadParams(string handler)
+        public DataTableEventsBuilder<TModel> StateLoadParams(string handler)
         {
             _dataTables.Model.Events.StateLoadParams = handler;
             return this;
@@ -380,7 +380,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> StateSaveParams(string handler)
+        public DataTableEventsBuilder<TModel> StateSaveParams(string handler)
         {
             _dataTables.Model.Events.StateSaveParams = handler;
             return this;
@@ -406,7 +406,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> Xhr(string handler)
+        public DataTableEventsBuilder<TModel> Xhr(string handler)
         {
             _dataTables.Model.Events.Xhr = handler;
             return this;
@@ -432,7 +432,7 @@ namespace DataTablesMvc.Builders
         /// </summary>
         /// <param name="handler">The name of the JavaScript function</param>
         /// <returns></returns>
-        public DataTablesEventsBuilder<TModel> CreatedRow(string handler)
+        public DataTableEventsBuilder<TModel> CreatedRow(string handler)
         {
             _dataTables.Model.Events.CreatedRow = handler;
             return this;

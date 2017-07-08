@@ -6,15 +6,16 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace DataTablesMvc.Builders.Columns
 {
-    public abstract class DataTablesColumnBuilder<TModel> : IDisposable
+    public abstract class DataTableColumnBuilder<TModel> : IDisposable
     {
-        protected readonly DataTablesColumnsBuilder<TModel> _owner;
+        protected readonly DataTableColumnsBuilder<TModel> _owner;
         
-        public DataTablesColumnBuilder(DataTablesColumnsBuilder<TModel> owner)
+        public DataTableColumnBuilder(DataTableColumnsBuilder<TModel> owner)
         {
             _owner = owner;
             _owner.Columns.Add(this);
@@ -51,6 +52,12 @@ namespace DataTablesMvc.Builders.Columns
         public string defaultContent;
 
         [EditorBrowsable(EditorBrowsableState.Never)]
+        public virtual IHtmlString GetFilter()
+        {
+            return null;
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public virtual string GetRender()
         {
             return string.Empty;
@@ -69,6 +76,7 @@ namespace DataTablesMvc.Builders.Columns
                 DefaultContent = defaultContent,
                 Width = width,
                 Title = title,
+                Filter = GetFilter(),
                 Render = GetRender()
             };
         }

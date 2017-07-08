@@ -10,15 +10,15 @@ namespace DataTablesMvc
     /// <summary>
     /// 
     /// </summary>
-    public class DataTablesResult : JsonResult
+    public class DataTableResult : JsonResult
     {
-        readonly DataTablesResponse _response;
+        readonly DataTableResponse _response;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="response"></param>
-        public DataTablesResult(DataTablesResponse response)
+        public DataTableResult(DataTableResponse response)
         {
             _response = response;
         }
@@ -26,9 +26,9 @@ namespace DataTablesMvc
         /// 
         /// </summary>
         /// <param name="response"></param>
-        public DataTablesResult(DataTablesRequest request, Action<DataTablesResponse> response)
+        public DataTableResult(DataTableRequest request, Action<DataTableResponse> response)
         {
-            _response = new DataTablesResponse(request);
+            _response = new DataTableResponse(request);
             response(_response);
         }
 

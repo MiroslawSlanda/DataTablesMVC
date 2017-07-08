@@ -1,4 +1,17 @@
-﻿jQuery.fn.DataTablesMvc = function (settings) {
+﻿/*!
+ * datatables-mvc 1.0
+ * http://datatablesmvc.com
+ *
+ * Author: Miroslaw Slanda
+ * Copyright: 2017, Miroslaw Slanda
+ */
+
+if (typeof jQuery === 'undefined')
+    throw new Error('DataTableMvc requires jQuery');
+if (typeof DataTable === 'undefined')
+    throw new Error('DataTableMvc requires DataTable');
+
+jQuery.fn.DataTableMvc = function (settings) {
     "use strict";
 
     var self = jQuery(this);

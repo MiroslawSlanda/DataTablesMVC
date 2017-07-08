@@ -8,21 +8,21 @@ using System.Linq.Expressions;
 
 namespace DataTablesMvc.Builders
 {
-    public class DataTablesColumnsBuilder<TModel> : DataTablesModuleBuilder<TModel>
+    public class DataTableColumnsBuilder<TModel> : DataTableModuleBuilder<TModel>
     {
-        public DataTablesColumnsBuilder(DataTablesBuilder<TModel> dataTables) 
+        public DataTableColumnsBuilder(DataTableBuilder<TModel> dataTables) 
             : base(dataTables)
         {
             DataTables = dataTables;
-            Columns = new List<DataTablesColumnBuilder<TModel>>();
+            Columns = new List<DataTableColumnBuilder<TModel>>();
         }
 
-        internal DataTablesBuilder<TModel> DataTables { get; private set; }
-        internal List<DataTablesColumnBuilder<TModel>> Columns { get; private set; }
+        internal DataTableBuilder<TModel> DataTables { get; private set; }
+        internal List<DataTableColumnBuilder<TModel>> Columns { get; private set; }
 
-        public DataTablesPropertyColumnBuilder<TModel, object> ColumnFor(Expression<Func<TModel, object>> expression)
+        public DataTablePropertyColumnBuilder<TModel, object> ColumnFor(Expression<Func<TModel, object>> expression)
         {
-            return new DataTablesPropertyColumnBuilder<TModel, object>(this, expression);
+            return new DataTablePropertyColumnBuilder<TModel, object>(this, expression);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

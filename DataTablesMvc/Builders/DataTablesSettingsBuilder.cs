@@ -9,34 +9,34 @@ using System.Web.Mvc;
 
 namespace DataTablesMvc.Builders
 {
-    public class DataTablesSettingsBuilder<TModel> : DataTablesModuleBuilder<TModel>
+    public class DataTableSettingsBuilder<TModel> : DataTableModuleBuilder<TModel>
     {
-        public DataTablesSettingsBuilder(DataTablesBuilder<TModel> dataTables) 
+        public DataTableSettingsBuilder(DataTableBuilder<TModel> dataTables) 
             : base(dataTables)
         {
             
         }
 
-        public DataTablesSettingsBuilder<TModel> Paging(bool paging)
+        public DataTableSettingsBuilder<TModel> Paging(bool paging)
         {
             _dataTables.Model.Paging = paging;
             return this;
         }
 
-        public DataTablesSettingsBuilder<TModel> Ordering(bool ordering)
+        public DataTableSettingsBuilder<TModel> Ordering(bool ordering)
         {
             _dataTables.Model.Ordering = ordering;
             return this;
         }
 
-        public DataTablesSettingsBuilder<TModel> Processing()
+        public DataTableSettingsBuilder<TModel> Processing()
         {
             _dataTables.Model.Processing = true;
             return this;
         }
 
         internal bool indexable = false;
-        public DataTablesSettingsBuilder<TModel> Indexable()
+        public DataTableSettingsBuilder<TModel> Indexable()
         {
             //_settings.Indexable = true;
             return this;
@@ -44,7 +44,7 @@ namespace DataTablesMvc.Builders
 
         internal bool selectable = false;
         internal int selectColumn = 1;
-        public DataTablesSettingsBuilder<TModel> Selectable(int column = 1)
+        public DataTableSettingsBuilder<TModel> Selectable(int column = 1)
         {
             this.selectable = true;
             this.selectColumn = column;
@@ -52,59 +52,59 @@ namespace DataTablesMvc.Builders
         }
 
         internal bool hiddenLengthChange = false;
-        public DataTablesSettingsBuilder<TModel> HiddenLengthChange()
+        public DataTableSettingsBuilder<TModel> HiddenLengthChange()
         {
             this.hiddenLengthChange = true;
             return this;
         }
 
         internal Dictionary<int, string> lengthMenu = null;
-        public DataTablesSettingsBuilder<TModel> LengthMenu(Dictionary<int, string> lengthMenu)
+        public DataTableSettingsBuilder<TModel> LengthMenu(Dictionary<int, string> lengthMenu)
         {
             this.lengthMenu = lengthMenu;
             return this;
         }
 
         internal bool orderCellsTop = false;
-        public DataTablesSettingsBuilder<TModel> OrderCellsTop()
+        public DataTableSettingsBuilder<TModel> OrderCellsTop()
         {
             this.orderCellsTop = true;
             return this;
         }
 
         internal bool deferRender = false;
-        public DataTablesSettingsBuilder<TModel> DeferRender()
+        public DataTableSettingsBuilder<TModel> DeferRender()
         {
             this.deferRender = true;
             return this;
         }
 
         internal int? orderColumn = null;
-        public DataTablesSettingsBuilder<TModel> OrderBy(int column)
+        public DataTableSettingsBuilder<TModel> OrderBy(int column)
         {
             this.orderColumn = column;
             return this;
         }
 
-        public DataTablesSettingsBuilder<TModel> PageLength(int pageLength)
+        public DataTableSettingsBuilder<TModel> PageLength(int pageLength)
         {
             _dataTables.Model.PageLength = pageLength;
             return this;
         }
 
-        public DataTablesSettingsBuilder<TModel> Searching()
+        public DataTableSettingsBuilder<TModel> Searching()
         {
             _dataTables.Model.Searching = true;
             return this;
         }
 
-        public DataTablesSettingsBuilder<TModel> AutoWidth()
+        public DataTableSettingsBuilder<TModel> AutoWidth()
         {
             _dataTables.Model.AutoWidth = true;
             return this;
         }
 
-        public DataTablesSettingsBuilder<TModel> ColReorder(bool colReorder)
+        public DataTableSettingsBuilder<TModel> ColReorder(bool colReorder)
         {
             _dataTables.Model.ColReorder = colReorder;
             return this;
@@ -112,7 +112,7 @@ namespace DataTablesMvc.Builders
 
         internal bool rowReorder = false;
         internal string rowReorderSelector = string.Empty;
-        public DataTablesSettingsBuilder<TModel> RowReorder(bool rowReorder, string rowReorderSelector = null)
+        public DataTableSettingsBuilder<TModel> RowReorder(bool rowReorder, string rowReorderSelector = null)
         {
             this.rowReorder = rowReorder;
             this.rowReorderSelector = rowReorderSelector;
@@ -121,67 +121,67 @@ namespace DataTablesMvc.Builders
 
         internal bool scrollInfinite = false;
         internal int? scrollY = null;
-        public DataTablesSettingsBuilder<TModel> ScrollInfinite(bool scrollInfinite, int? scrollY = null)
+        public DataTableSettingsBuilder<TModel> ScrollInfinite(bool scrollInfinite, int? scrollY = null)
         {
             this.scrollInfinite = scrollInfinite;
             this.scrollY = scrollY;
             return this;
         }
 
-        public DataTablesSettingsBuilder<TModel> SearchDelay(int searchDelay)
+        public DataTableSettingsBuilder<TModel> SearchDelay(int searchDelay)
         {
             _dataTables.Model.SearchDelay = searchDelay;
             return this;
         }
 
-        public DataTablesSettingsBuilder<TModel> Info(bool info)
+        public DataTableSettingsBuilder<TModel> Info(bool info)
         {
             _dataTables.Model.Info = info;
             return this;
         }
 
-        public DataTablesSettingsBuilder<TModel> StateSave(bool stateSave)
+        public DataTableSettingsBuilder<TModel> StateSave(bool stateSave)
         {
             _dataTables.Model.StateSave = stateSave;
             return this;
         }
 
         internal bool destroy = false;
-        public DataTablesSettingsBuilder<TModel> Destroy(bool destroy)
+        public DataTableSettingsBuilder<TModel> Destroy(bool destroy)
         {
             this.destroy = destroy;
             return this;
         }
 
-        public DataTablesSettingsBuilder<TModel> Dom(string dom)
+        public DataTableSettingsBuilder<TModel> Dom(string dom)
         {
             _dataTables.Model.Dom = dom;
             return this;
         }
 
         internal bool striped = false;
-        public DataTablesSettingsBuilder<TModel> Striped()
+        public DataTableSettingsBuilder<TModel> Striped()
         {
             this.striped = true;
             return this;
         }
 
         internal bool bordered = false;
-        public DataTablesSettingsBuilder<TModel> Bordered()
+        public DataTableSettingsBuilder<TModel> Bordered()
         {
             this.bordered = true;
             return this;
         }
 
         internal bool hover = false;
-        public DataTablesSettingsBuilder<TModel> Hover()
+        public DataTableSettingsBuilder<TModel> Hover()
         {
             this.hover = true;
             return this;
         }
 
         internal bool condensed = false;
-        public DataTablesSettingsBuilder<TModel> Condensed()
+        public DataTableSettingsBuilder<TModel> Condensed()
         {
             this.condensed = true;
             return this;

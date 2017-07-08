@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace DataTablesMvc.Builders
 {
-    public abstract class DataTablesModuleBuilder<TModel> : IDisposable
+    public abstract class DataTableModuleBuilder<TModel> : IDisposable
     {
-        readonly protected DataTablesBuilder<TModel> _dataTables;
-        public DataTablesModuleBuilder(DataTablesBuilder<TModel> dataTables)
+        readonly protected DataTableBuilder<TModel> _dataTables;
+        public DataTableModuleBuilder(DataTableBuilder<TModel> dataTables)
         {
             _dataTables = dataTables;
         }

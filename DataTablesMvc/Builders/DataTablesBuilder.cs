@@ -20,24 +20,34 @@ namespace DataTablesMvc.Builders
     /// 
     /// </summary>
     /// <typeparam name="TModel"></typeparam>
-    public class DataTablesBuilder<TModel> : IDisposable
+    public class DataTableBuilder<TModel> : IDisposable
     {
         internal string id;
         protected string _class = "";
 
-        public DataTablesBuilder(HtmlHelper helper, IEnumerable<TModel> records = null)
+        public DataTableBuilder(HtmlHelper helper)
         {
             Helper = helper;
             WebViewPage = (WebViewPage)helper.ViewDataContainer;
             Model = new DataTables();
             Scripts = new List<IHtmlString>();
-
-            if (records != null)
-                Records = records;
-            else
-                Records = new List<TModel>();
-
+            Records = new List<TModel>();
             id = GenerateId();
+        }
+        public DataTableBuilder(HtmlHelper helper, IEnumerable<TModel> records) 
+            : this(helper)
+        {
+            Records = records;
+        }
+        public DataTableBuilder(HtmlHelper helper, DataTableResult result)
+            : this(helper)
+        {
+            AjaxSource(result);
+        }
+        public DataTableBuilder(HtmlHelper helper, string id)
+            : this(helper)
+        {
+            Id(id);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -52,20 +62,19 @@ namespace DataTablesMvc.Builders
 
         internal ICollection<IHtmlString> Scripts { get; private set; }
 
-        public DataTablesBuilder<TModel> Id(string Id)
+        public DataTableBuilder<TModel> Id(string Id)
         {
             this.id = Id;
             return this;
         }
-
         
-        public DataTablesBuilder<TModel> Class(string className)
+        public DataTableBuilder<TModel> Class(string className)
         {
             _class = className;
             return this;
         }
 
-        public virtual DataTablesBuilder<TModel> AjaxSource(ActionResult result)
+        public virtual DataTableBuilder<TModel> AjaxSource(ActionResult result)
         {
             var urlHelper = new UrlHelper(Helper.ViewContext.RequestContext);
 
@@ -75,29 +84,29 @@ namespace DataTablesMvc.Builders
             return this;
         }
 
-        public DataTablesToolbarBlockBuilder<TModel> Toolbar()
+        public DataTableToolbarBlockBuilder<TModel> Toolbar()
         {
-            return new DataTablesToolbarBlockBuilder<TModel>(this);
+            return new DataTableToolbarBlockBuilder<TModel>(this);
         }
 
-        public DataTablesSettingsBuilder<TModel> Settings()
+        public DataTableSettingsBuilder<TModel> Settings()
         {
-            return new DataTablesSettingsBuilder<TModel>(this);
+            return new DataTableSettingsBuilder<TModel>(this);
         }
 
-        public DataTablesLanguageBuilder<TModel> Language()
+        public DataTableLanguageBuilder<TModel> Language()
         {
-            return new DataTablesLanguageBuilder<TModel>(this);
+            return new DataTableLanguageBuilder<TModel>(this);
         }
 
-        public DataTablesColumnsBuilder<TModel> Columns()
+        public DataTableColumnsBuilder<TModel> Columns()
         {
-            return new DataTablesColumnsBuilder<TModel>(this);
+            return new DataTableColumnsBuilder<TModel>(this);
         }
 
-        public DataTablesEventsBuilder<TModel> Events()
+        public DataTableEventsBuilder<TModel> Events()
         {
-            return new DataTablesEventsBuilder<TModel>(this);
+            return new DataTableEventsBuilder<TModel>(this);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -106,12 +115,18 @@ namespace DataTablesMvc.Builders
             var html = new HtmlBuilder("table");
 
             html.Id(id);
-            html.AddCssClass("table table-striped table-bordered");
+            html.AddCssClass("table table-striped table-bordered " + _class);
             html.AddControl("thead", thead =>
             {
                 thead.InnerHtml += "<tr>";
                 this.Model.Columns.ForEach(c => thead.InnerHtml += string.Format("<th>{0}</th>", c.Title));
                 thead.InnerHtml += "</tr>";
+                if(Model.Columns.Any(c => c.Filter != null))
+                {
+                    thead.InnerHtml += "<tr class=\"filter-row\">";
+                    this.Model.Columns.ForEach(c => thead.InnerHtml += string.Format("<th>{0}</th>", c.Filter != null ? c.Filter.ToHtmlString() : string.Empty));
+                    thead.InnerHtml += "</tr>";
+                }
             });
             html.AddControl("tbody", thead =>
             {
@@ -130,7 +145,7 @@ namespace DataTablesMvc.Builders
             html.AddScript(s =>
             {
                 s.AppendLine("<script type=\"text/javascript\">");
-                s.AppendLine(string.Format("jQuery(function(){{ jQuery('#{0}').DataTablesMvc({1}); }});", id, ToJson()));
+                s.AppendLine(string.Format("jQuery(function(){{ jQuery('#{0}').DataTableMvc({1}); }});", id, ToJson()));
                 s.AppendLine("</script>");
             });
 

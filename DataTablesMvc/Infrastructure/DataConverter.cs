@@ -24,8 +24,7 @@ namespace DataTablesMvc.Infrastructure
         {
             JToken t = JToken.FromObject(value);
             if(t.Type != JTokenType.Object)
-            {
-        
+            {       
                 t.WriteTo(writer);
             }
             else

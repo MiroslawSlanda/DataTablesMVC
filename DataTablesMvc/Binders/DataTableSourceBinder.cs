@@ -1,14 +1,15 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace DataTablesMvc
 {
-    /*/// <summary>
-    /// 
-    /// </summary>
-    public class DataTablesRequestBinder : IModelBinder
+    public class DataTableSourceBinder : IModelBinder
     {
         /// <summary>
         /// 
@@ -20,7 +21,7 @@ namespace DataTablesMvc
         {
             var contentType = controllerContext.HttpContext.Request.ContentType;
             if (!contentType.StartsWith("application/json", StringComparison.OrdinalIgnoreCase))
-                return null;
+                throw new Exception("Content type '" + contentType + "' is not valid.");
 
             var request = controllerContext.HttpContext.Request;
 
@@ -37,7 +38,15 @@ namespace DataTablesMvc
 
             bodyText = bodyText.Trim('\'');
 
-            return JsonConvert.DeserializeObject<DataTablesRequest>(bodyText);
+            var dataTableRequest = JsonConvert.DeserializeObject<DataTableRequest>(bodyText);
+            if (dataTableRequest == null)
+                throw new Exception("Cannot deserialize DataTableRequest with body: " + bodyText);
+
+            return new DataTableSource()
+            {
+                Request = dataTableRequest,
+                Response = new DataTableResponse(dataTableRequest)
+            };
         }
-    }*/
+    }
 }

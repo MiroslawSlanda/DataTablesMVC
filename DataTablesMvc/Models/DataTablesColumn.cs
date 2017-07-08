@@ -1,6 +1,7 @@
 ﻿using DataTablesMvc.Infrastructure;
 using Newtonsoft.Json;
 using System.ComponentModel;
+using System.Web;
 
 namespace DataTablesMvc.Models
 {
@@ -31,6 +32,9 @@ namespace DataTablesMvc.Models
 
         [JsonProperty("title")]
         public string Title { get; set; }
+
+        [JsonIgnore]
+        public IHtmlString Filter { get; set; }
 
         [DefaultValue(null)]
         [JsonProperty("render", DefaultValueHandling = DefaultValueHandling.Ignore)]

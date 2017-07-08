@@ -7,16 +7,17 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace DataTablesMvc.Builders.Columns
 {
-    public class DataTablesPropertyColumnBuilder<TModel, TValue> : DataTablesColumnBuilder<TModel>
+    public class DataTablePropertyColumnBuilder<TModel, TValue> : DataTableColumnBuilder<TModel>
     {
         protected Expression<Func<TModel, TValue>> _expression;
         protected ModelMetadata _metadata;
 
-        public DataTablesPropertyColumnBuilder(DataTablesColumnsBuilder<TModel> owner, Expression<Func<TModel, TValue>> expression) 
+        public DataTablePropertyColumnBuilder(DataTableColumnsBuilder<TModel> owner, Expression<Func<TModel, TValue>> expression) 
 			: base(owner)
 		{
             _expression = expression;
@@ -28,52 +29,66 @@ namespace DataTablesMvc.Builders.Columns
                 title = _metadata.PropertyName;
         }
 
-        public DataTablesPropertyColumnBuilder<TModel, TValue> Title(string title)
+        public DataTablePropertyColumnBuilder<TModel, TValue> Title(string title)
         {
             this.title = title;
             return this;
         }
 
-        public DataTablesPropertyColumnBuilder<TModel, TValue> Orderable(bool orderable)
+        public DataTablePropertyColumnBuilder<TModel, TValue> Orderable(bool orderable)
         {
             this.orderable = orderable;
             return this;
         }
 
-        public DataTablesPropertyColumnBuilder<TModel, TValue> Searchable(bool searchable)
+        public DataTablePropertyColumnBuilder<TModel, TValue> Searchable(bool searchable)
         {
             this.searchable = searchable;
             return this;
         }
 
-        public DataTablesPropertyColumnBuilder<TModel, TValue> Width(string width)
+        public DataTablePropertyColumnBuilder<TModel, TValue> Width(string width)
         {
             this.width = width;
             return this;
         }
 
-        public DataTablesPropertyColumnBuilder<TModel, TValue> Visible(bool visible)
+        public DataTablePropertyColumnBuilder<TModel, TValue> Visible(bool visible)
         {
             this.visible = visible;
             return this;
         }
 
-        public DataTablesPropertyColumnBuilder<TModel, TValue> Format(IValueFormatter format)
+        public DataTablePropertyColumnBuilder<TModel, TValue> Format(IValueFormatter format)
         {
             var key = _owner.DataTables.id + name;
             _owner.DataTables.Helper.ViewContext.ViewData[key] = format;
             return this;
         }
 
-        public DataTablesPropertyColumnBuilder<TModel, TValue> Format(Expression<Func<TValue, object>> format)
+        public DataTablePropertyColumnBuilder<TModel, TValue> Format(Expression<Func<TValue, object>> format)
         {
             var key = _owner.DataTables.id + name;
             _owner.DataTables.Helper.ViewContext.ViewData[key] = format.Compile();
             return this;
         }
 
+        internal bool filterDefault;
+        public DataTablePropertyColumnBuilder<TModel, TValue> Filter(bool filter = true)
+        {
+            this.filterDefault = filter;
+            return this;
+        }
+
+        internal IHtmlString filterHtml;
+        public DataTablePropertyColumnBuilder<TModel, TValue> Filter(IHtmlString html)
+        {
+            this.filterHtml = html;
+            return this;
+        }
+
         internal string renderHandler;
-        public DataTablesPropertyColumnBuilder<TModel, TValue> Render(string handler)
+        public DataTablePropertyColumnBuilder<TModel, TValue> Render(string handler)
         {
             this.renderHandler = handler;
             return this;
@@ -85,6 +100,16 @@ namespace DataTablesMvc.Builders.Columns
             var block = new BlockBuilder(_owner.DataTables.WebViewPage);
             _owner.DataTables.Scripts.Add(block);
             return block;
+        }
+
+        public override IHtmlString GetFilter()
+        {
+            if (filterDefault)
+                return new FilterBuilder(_metadata);
+            else if (filterHtml != null)
+                return filterHtml;
+
+            return null;
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
